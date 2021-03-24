@@ -197,70 +197,74 @@ In addition, the following keyword arguments are optional.
     unneeded grid lines.
 
 *trace_width*:
-The width of a trace. The default is 0.025 inches.
+    The width of a trace. The default is 0.025 inches.
 
 *trace_color*:
-The default color of the trace.  You can use one of the named SVG colors, or you 
-can use 'rgb(R,G,B)' where *R*, *G*, and *B* are integers between 0 and 255 that 
-specify the intensity of red, blue, and green components of the color.
+    The default color of the trace.  You can use one of the named SVG colors, or 
+    you can use 'rgb(R,G,B)' where *R*, *G*, and *B* are integers between 0 and 
+    255 that specify the intensity of red, blue, and green components of the 
+    color.
 
 *major_line_width*:
-The width of a major division line. The default is 0.01 inches.
+    The width of a major division line. The default is 0.01 inches.
 
 *minor_line_width*:
-The width of a minor division line. The default is 0.005 inches.
+    The width of a minor division line. The default is 0.005 inches.
 
 *outline_line_width*:
-The width of grid outline. The default is 0.015 inches.
+    The width of grid outline. The default is 0.015 inches.
 
 *outline_line_color*:
-The color of the grid outline.  The default is 'black'.
+    The color of the grid outline.  The default is 'black'.
 
 *fz_grid_color*:
-The color of the frequency and impedance grid lines.  The default is 'grey'.
+    The color of the frequency and impedance grid lines.  The default is 'grey'.
 
 *cl_grid_color*:
-The color of the capacitance and inductance grid lines.  The default is 'grey'.
+    The color of the capacitance and inductance grid lines.  The default is 
+    'grey'.
 
 *background*:
-The background color of the grid.  The default is 'white'.
+    The background color of the grid.  The default is 'white'.
 
 *minor_divs*:
-The minor divisions to include.  The default is '123456789'.  Other common 
-values are '1', '13', '125', and '12468'.
+    The minor divisions to include.  The default is '123456789'.  Other common 
+    values are '1', '13', '125', and '12468'.
 
 *decade*:
-The size of one decade square.  The default is 1 inch. With this value, a grid 
-that is 6 decades wide and 4 decades high is 6" by 4".
+    The size of one decade square.  The default is 1 inch. With this value, 
+    a grid that is 6 decades wide and 4 decades high is 6" by 4".
 
 *left_margin*:
-The size of the left margin.  The default is 1 inch.
+    The size of the left margin.  The default is 1 inch.
 
 *right_margin*:
-The size of the right margin.  The default is 1 inch.
+    The size of the right margin.  The default is 1 inch.
 
 *top_margin*:
-The size of the top margin.  The default is 1 inch.
+    The size of the top margin.  The default is 1 inch.
 
 *bottom_margin*:
-The size of the bottom margin.  The default is 1 inch.
+    The size of the bottom margin.  The default is 1 inch.
 
 *font_family*:
-The text font family.  The default is "sans-serif".
+    The text font family.  The default is "sans-serif".
 
 *font_size*:
-The text font size.  The default is 12.
+    The text font size.  The default is 12.
 
 *text_color*:
-The text color size.  The default is "black".
+    The text color size.  The default is "black".
 
 *text_offset*:
-The separation between the axis labels and the grid. The default is 0.15 inches.
+    The separation between the axis labels and the grid. The default is 0.15 
+    inches.
 
 *pixels_per_unit*:
-This is a scaling factor that allows you specify your dimensions to what every 
-units you wish.  A value of 96, the default, means that you are specifying your 
-units in inches.  A value of 37.8 allows you specify values in centimeters. Etc.
+    This is a scaling factor that allows you specify your dimensions to what 
+    every units you wish.  A value of 96, the default, means that you are 
+    specifying your units in inches.  A value of 37.8 allows you specify values 
+    in centimeters. Etc.
 
 In addition, many SVG parameters can be passed into *RLC_Chart*, in which case 
 they are simple passed on to *svgwrite*.
