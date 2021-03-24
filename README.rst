@@ -17,7 +17,7 @@ What?
 *rlc_chart* is library that renders impedance charts in SVG with the normal
 impedance versus frequency log-log grids, but they also include capacitance and
 inductance grids.  They can be used to directly read component values from 
-a plot of impedance.  This is explained `here 
+a plot of impedance.  This is explained in `Introduction to Phasors 
 <https://designers-guide.org/theory/phasors.pdf>`_.
 
 Consider the impedance of a capacitor that has series resistance and inductance 
@@ -376,3 +376,8 @@ to add a title that is near the top.
     :width: 100%
     :align: center
 
+Notice that in this chart the resistance at low frequencies drops with 1/*f*,
+just like the reactance.  The effect is referred to as dielectric absorption and 
+it is both common and remarkable.  You can read more about it, and how to model 
+it, in `Modeling Dielectric Absorption in Capacitors 
+<https://designers-guide.org/modeling/da.pdf>`_.
