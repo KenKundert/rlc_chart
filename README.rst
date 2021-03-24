@@ -1,12 +1,11 @@
 RLC Chart
-================
+=========
 
-.. not yet:
-    .. image:: https://img.shields.io/pypi/v/rlc_chart.svg
-        :target: https://pypi.python.org/pypi/rlc_chart
+.. image:: https://img.shields.io/pypi/v/rlc_chart.svg
+    :target: https://pypi.python.org/pypi/rlc_chart
 
-    .. image:: https://img.shields.io/pypi/pyversions/rlc_chart.svg
-        :target: https://pypi.python.org/pypi/rlc_chart/
+.. image:: https://img.shields.io/pypi/pyversions/rlc_chart.svg
+    :target: https://pypi.python.org/pypi/rlc_chart/
 
 :Author: Ken Kundert
 :Version: 0.0.0
@@ -296,7 +295,7 @@ and style. For example, specify *stroke* to specify the trace color.
 
 
 Labeling
-========
+--------
 
 The chart object returned by *RLC_Chart* is a *svgwrite* *Drawing* object, and 
 so you can call its methods to add SVG features to your chart.  This can be used 
