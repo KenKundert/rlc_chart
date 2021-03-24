@@ -141,7 +141,8 @@ The RLC chart shows that the above subcircuit can be replaced with::
         R   (2 2) resistor r=537.46_Ohm
     ends MCFE1412TR47_JB
 
-This version only requires one additional unknown, the inductor current.
+This version only requires one additional unknown, the inductor current, and so 
+is considerably more efficient.
 
 Here is the RLC chart of both showing the difference, which are inconsequential.
 
@@ -273,7 +274,7 @@ In addition, the following keyword arguments are optional.
     in centimeters. Etc.
 
 In addition, many SVG parameters can be passed into *RLC_Chart*, in which case 
-they are simple passed on to *svgwrite*.
+they are simply passed on to *svgwrite*.
 
 Generally, *RLC_Chart* is the argument of a *with* statement. If you choose not 
 to do this, then you must explicitly call the *close* method yourself.  Other 
