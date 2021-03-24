@@ -273,8 +273,8 @@ Generally, *RLC_Chart* is the argument of a *with* statement. If you choose not
 to do this, then you must explicitly call the *close* method yourself.  Other 
 than *close*, *RLC_Chart* provides one other method: *add_trace*.
 
-add_trace
-"""""""""
+add_trace()
+"""""""""""
 
 This method adds a trace to the graph. It may be called multiple times to add 
 additional traces. There are two required arguments:
@@ -364,3 +364,8 @@ data values into coordinates within the grid.  This is used to add labels on the
 traces.  The *chart* object also provides the *HEIGHT* and *WIDTH* attributes.  
 These can be used to compute coordinates within the entire canvas. This is used 
 to add a title that is near the top.
+
+.. image:: figures/C0603C102K3GACTU.svg
+    :width: 100%
+    :align: center
+
