@@ -17,7 +17,8 @@ What?
 *rlc_chart* is library that renders impedance charts in SVG with the normal
 impedance versus frequency log-log grids, but they also include capacitance and
 inductance grids.  They can be used to directly read component values from 
-a plot of impedance.
+a plot of impedance.  This is explained `here 
+<https://designers-guide.org/theory/phasors.pdf>`_.
 
 Consider the impedance of a capacitor that has series resistance and inductance 
 parasitics along with a shunt resistor as represented by the following circuit:
@@ -48,6 +49,10 @@ Here is an example of how to use *rlc_chart*::
     from rlc_chart import RLC_Chart
     from math import log10 as log, pi as π
 
+    Rs = 2
+    Rp = 500_000
+    C = 1e-9
+    L = 10e-6
     fmin = 1
     fmax = 1e8
     zmin = 1
@@ -56,12 +61,14 @@ Here is an example of how to use *rlc_chart*::
     f = fmin
     freq = []
     impedance = []
-    resistance = []
-    reactance = []
 
+    # Compute impedance of component
+    # z1 = (Rs + 1/(jωC + jωL)     Rs=2Ω, C=1nF, L=10μH
+    # z2 = Rp                      Rp=500kΩ
+    # z = z1 ‖ z2
     while(f <= 1.01*fmax):
-        z1 = 2 + 1/(2j*π*f*1e-9) + 2j*π*f*10.0e-6
-        z2 = 5e5
+        z1 = Rs + 1/(2j*π*f*C) + 2j*π*f*L
+        z2 = Rp
         z = z1 * z2 / (z1 + z2)
         freq += [f]
         impedance += [abs(z)]
