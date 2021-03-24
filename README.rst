@@ -23,7 +23,7 @@ a plot of impedance.
 Consider the impedance of a capacitor that has series resistance and inductance 
 parasitics along with a shunt resistor as represented by the following circuit:
 
-.. image:: figures/leaky-cap.svg
+.. image:: figures/leaky-cap-schematic.svg
     :width: 25%
     :align: center
 
