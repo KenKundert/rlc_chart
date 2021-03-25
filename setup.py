@@ -6,7 +6,7 @@ with open('README.rst', encoding="UTF-8") as f:
 
 setup(
     name = 'rlc_chart',
-    version = '0.0.1',
+    version = '0.1.0',
     description = 'A library that renders impedance charts that include capacitance and inductance grids.',
     long_description = readme,
     long_description_content_type = 'text/x-rst',

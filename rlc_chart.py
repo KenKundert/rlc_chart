@@ -6,7 +6,7 @@
 *RLC Chart* is a Python library that creates SVG impedance charts with
 capacitance and inductance overlays.
 """
-__version__ = '0.0.1'
+__version__ = '0.1.0'
 __released__ = '2021-03-25'
 
 
