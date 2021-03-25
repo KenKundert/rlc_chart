@@ -445,7 +445,8 @@ traces.  The *chart* object also provides the *HEIGHT* and *WIDTH* attributes.
 These can be used to compute coordinates within the entire canvas. This is used 
 to add a title that is near the top.
 
-The example also illustrates the use of *add_line* to add lines to your chart.
+The example also illustrates the use of *add_line* to add dimension lines to the 
+chart.
 
 .. image:: figures/C0603C102K3GACTU.svg
     :width: 100%
