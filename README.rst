@@ -456,8 +456,9 @@ In this figure the solid traces are the data and the dashed traces are the
 model.  The red trace is the magnitude of the impedance, and the blue traces are 
 the real part of the impedance, or the ESR.
 
-Notice that in this chart the resistance at low frequencies drops with 1/*f*,
-just like the reactance.  The effect is referred to as dielectric absorption and 
-it is both common and remarkable.  You can read more about it, and how to model 
-it, in `Modeling Dielectric Absorption in Capacitors 
+Notice that in this chart the resistance at low frequencies drops with 1/*f*, 
+just like the reactance.  In this regard the data differs significantly from the 
+model.  This effect is referred to as dielectric absorption and it is both 
+common and remarkable.  You can read more about it, and how to model it, in 
+`Modeling Dielectric Absorption in Capacitors 
 <https://designers-guide.org/modeling/da.pdf>`_.
