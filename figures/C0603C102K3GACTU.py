@@ -95,8 +95,8 @@ try:
         # add traces last, so they are on top
         chart.add_trace(frequency, z_data, stroke='red')
         chart.add_trace(frequency, r_data, stroke='blue')
-        chart.add_trace(frequency, z_model, stroke='red', stroke_dasharray=(10,5))
-        chart.add_trace(frequency, r_model, stroke='blue', stroke_dasharray=(10,5))
+        chart.add_trace(frequency, z_model, stroke='red', stroke_dasharray='10,5')
+        chart.add_trace(frequency, r_model, stroke='blue', stroke_dasharray='10,5')
 
 except OSError as e:
     fatal(os_error(e))
