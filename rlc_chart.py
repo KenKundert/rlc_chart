@@ -328,9 +328,6 @@ class RLC_Chart(Drawing):
     # add_trace() {{{2
     def add_trace(self, frequencies, impedances, name=None, **svg_args):
 
-        def bound(z):
-            return max(self.zmin, min(self.zmax, z))
-
         kwargs = dict(
             stroke = self.TRACE_COLOR,
             stroke_width = self.to_pixels(self.TRACE_WIDTH),
@@ -346,6 +343,43 @@ class RLC_Chart(Drawing):
                     for f, z in zip(frequencies, impedances)
                 ],
                 clip_path = 'url(#plotting-region)',
+                **kwargs
+            )
+        )
+
+    # add_line() {{{2
+    def add_line(self, start, end, *, r=None, l=None, c=None, f=None, **svg_args):
+
+        kwargs = dict(
+            stroke = self.OUTLINE_LINE_COLOR,
+            stroke_width = self.to_pixels(self.OUTLINE_LINE_WIDTH),
+            stroke_linecap = 'round',
+            fill = 'none',
+        )
+        kwargs.update(svg_args)
+
+        if r is not None:
+            f_start, f_end = start, end
+            z_start = z_end = r
+        elif l is not None:
+            f_start, f_end = start, end
+            z_start = 2*π*start*l
+            z_end = 2*π*end*l
+        elif c is not None:
+            f_start, f_end = start, end
+            z_start = 1/(2*π*start*c)
+            z_end = 1/(2*π*end*c)
+        elif f is not None:
+            z_start = start
+            z_end = end
+            f_start = f_end = f
+        else:
+            raise AssertionError('must specify either r, l, c, or f.')
+
+        self.traces.add(
+            self.line(
+                start = (self.to_x(f_start), self.to_y(z_start)),
+                end = (self.to_x(f_end), self.to_y(z_end)),
                 **kwargs
             )
         )
