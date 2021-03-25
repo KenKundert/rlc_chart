@@ -8,8 +8,8 @@ RLC Chart
     :target: https://pypi.python.org/pypi/rlc_chart/
 
 :Author: Ken Kundert
-:Version: 0.0.0
-:Released: 2021-03-21
+:Version: 0.0.1
+:Released: 2021-03-25
 
 What?
 -----
