@@ -34,7 +34,7 @@ try:
         z_model.append(abs(z))
         r_model.append(z.real)
 
-    with RLC_Chart('C0603C102K3GACTU.svg', fmin, fmax, zmin, zmax, axes='FZCL') as chart:
+    with RLC_Chart('C0603C102K3GACTU.svg', fmin, fmax, zmin, zmax, right_margin=2) as chart:
 
         # add annotations
         svg_text_args = dict(font_size = 24, fill = 'black')
@@ -85,7 +85,7 @@ try:
 
         # title
         chart.add(chart.text(
-            "C0603C102K3GACTU",
+            "C0603C102K3GACTU 1nF Ceramic Capacitor",
             insert = (chart.WIDTH/2, 36),
             font_size = 24,
             fill = 'black',
