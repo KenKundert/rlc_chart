@@ -453,8 +453,8 @@ chart.
     :align: center
 
 In this figure the solid traces are the data and the dashed traces are the 
-model.  The red trace is the magnitude of the impedance, and the blue traces are 
-the real part of the impedance, or the ESR.
+model.  The red traces are the magnitude of the impedance, and the blue traces 
+are the real part of the impedance, or the ESR.
 
 Notice that in this chart the resistance at low frequencies drops with 1/*f*, 
 just like the reactance.  In this regard the data differs significantly from the 
