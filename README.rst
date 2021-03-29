@@ -392,10 +392,10 @@ file::
             z_model.append(abs(z))
             r_model.append(z.real)
 
-        with RLC_Chart('C0603C102K3GACTU.svg', fmin, fmax, zmin, zmax, right_margin=2) as chart:
+        with RLC_Chart('C0603C102K3GACTU.svg', fmin, fmax, zmin, zmax) as chart:
 
             # add annotations
-            svg_text_args = dict(font_size=24, fill='black')
+            svg_text_args = dict(font_size=22, fill='black')
 
             # capacitance annotations
             chart.add(chart.text(
@@ -408,8 +408,8 @@ file::
             # inductance annotations
             chart.add(chart.text(
                 "L = 700 pH",
-                insert = (chart.to_x(12e9), chart.to_y(30)),
-                text_anchor = 'start',
+                insert = (chart.to_x(6e9), chart.to_y(30)),
+                text_anchor = 'end',
                 **svg_text_args
             ))
             chart.add_line(190.232e6, 10e9, l=700e-12)
@@ -426,11 +426,11 @@ file::
             # resonant frequency annotations
             chart.add(chart.text(
                 "f₀ = 190 MHz",
-                insert = (chart.to_x(190.23e6), chart.to_y(40)),
+                insert = (chart.to_x(190.23e6), chart.to_y(400)),
                 text_anchor = 'middle',
                 **svg_text_args
             ))
-            chart.add_line(1e-2, 30, f=190.23e6)
+            chart.add_line(1e-2, 300, f=190.23e6)
 
             # Q annotations
             chart.add(chart.text(
