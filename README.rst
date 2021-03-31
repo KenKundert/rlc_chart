@@ -609,6 +609,13 @@ Here is the resulting RLC chart.
     :align: center
 
 
+.. _installing:
+
+To install use::
+
+    pip install --user rlc_chart
+
+
 .. _releases:
 
 Releases
