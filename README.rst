@@ -615,6 +615,9 @@ some mix-up in the data files on the website.
 
 .. _installing:
 
+Installing
+----------
+
 To install use::
 
     pip install --user rlc_chart
