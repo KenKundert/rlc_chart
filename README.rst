@@ -12,6 +12,8 @@ RLC Chart
 :Released: 2021-03-25
 
 
+.. _what:
+
 What?
 -----
 
@@ -41,6 +43,8 @@ findings.
 Using an RLC chart is often enough to allow you to build a linear model for
 common two terminal components.
 
+
+.. _how:
 
 How?
 ----
@@ -83,84 +87,8 @@ array is expected to contain positive real values.  In this case it is the
 magnitude that is being plotted, though it is also common to call *add_trace*
 twice to show both the real and imaginary parts of the impedance.
 
-If you use the *Spectre* circuit simulator, you can use *psf_utils* with
-*rlc_chart* to extract models from simulation results. For example, here is the
-model of an inductor given by its manufacturer::
 
-    subckt MCFE1412TR47_JB (1 2)
-        R1 (1 7) resistor  r=0.036
-        L5 (2 8) inductor  l=20u
-        C2 (7 8) capacitor c=10.6p
-        R2 (8 2) resistor  r=528
-        C1 (7 9) capacitor c=28.5p
-        R5 (9 2) resistor  r=3.7
-        L0 (7 3) inductor  l=0.27u
-        L1 (3 4) inductor  l=0.07u
-        L2 (4 2) inductor  l=0.11u
-        L3 (3 5) inductor  l=0.39u
-        L4 (4 6) inductor  l=0.35u
-        R3 (5 4) resistor  r=3.02158381422266
-        R4 (6 2) resistor  r=43.4532529473926
-    ends MCFE1412TR47_JB
-
-This model is overly complicated and so expensive to simulate.  It requires 13
-extra unknowns that the simulator must compute (7 internal nodes and 6 inductor
-currents).  The impedance of this subcircuit is extracted by grounding one end
-and driving the other with a 1 A magnitude AC source.  Then, the RLC chart for
-this subcircuit can be generated with::
-
-    from psf_utils import PSF
-    from inform import Error, os_error, fatal
-    from rlc_chart import RLC_Chart
-
-    try:
-        psf = PSF('MCFE1412TR47_JB.ac')
-        sweep = psf.get_sweep()
-        z_ckt = psf.get_signal('1')
-        z_mod = psf.get_signal('2')
-
-        with RLC_Chart('MCFE1412TR47_JB.svg', 100, 1e9, 0.01, 1000) as chart:
-            chart.add_trace(sweep.abscissa, abs(z_ckt.ordinate), stroke='red')
-            chart.add_trace(sweep.abscissa, abs(z_mod.ordinate), stroke='blue')
-
-        with RLC_Chart('MCFE1412TR47_JB.rxz.svg', 100, 1e9, 0.01, 1000) as chart:
-            chart.add_trace(sweep.abscissa, abs(z_ckt.ordinate.real), stroke='green')
-            chart.add_trace(sweep.abscissa, abs(z_ckt.ordinate.imag), stroke='orange')
-            chart.add_trace(sweep.abscissa, abs(z_mod.ordinate.real), stroke='blue')
-            chart.add_trace(sweep.abscissa, abs(z_mod.ordinate.imag), stroke='red')
-
-    except Error as e:
-        e.terminate()
-    except OSError as e:
-        fatal(os_error(e))
-
-The RLC chart shows that the above subcircuit can be replaced with::
-
-    subckt MCFE1412TR47_JB (1 2)
-        L   (2 2) inductor l=442.24nH r=36mOhm
-        C   (2 2) capacitor c=27.522pF
-        R   (2 2) resistor r=537.46_Ohm
-    ends MCFE1412TR47_JB
-
-This version only requires one additional unknown, the inductor current, and so
-is considerably more efficient.
-
-Here is the RLC chart of both showing the difference, which are inconsequential.
-
-.. image:: figures/MCFE1412TR47_JB.svg
-    :width: 100%
-    :align: center
-
-The differences are a bit more apparent if the real and imaginary components of
-the impedance are plotted separately.
-
-.. image:: figures/MCFE1412TR47_JB.rxz.svg
-    :width: 100%
-    :align: center
-
-The differences are significant only in the loss exhibited above resonance,
-which is usually not of concern.
-
+.. _rlc_chart:
 
 RLC_Chart
 ---------
@@ -349,6 +277,8 @@ right margins.  The 0 *X* value is at the left of the drawing and *WIDTH* when
 used as an *X* coordinate represents the right of the canvas.
 
 
+.. _labeling:
+
 Labeling
 --------
 
@@ -485,8 +415,203 @@ common and remarkable.  You can read more about it, and how to model it, in
 <https://designers-guide.org/modeling/da.pdf>`_.
 
 
+.. _examples:
+
+Examples
+--------
+
+NumPy Arrays
+"""""""""""""
+
+The first example, given above in how_, demonstrates how to generate an RLC 
+chart by evaluating formulas in Python.  Here the example is repeated 
+reformulated to use NumPy arrays::
+
+    from rlc_chart import RLC_Chart
+    from inform import fatal, os_error
+    from numpy import logspace, log10 as log, pi as π
+
+    Rs = 2
+    Rp = 500e3
+    C = 1e-9
+    L = 10e-6
+    fmin = 1
+    fmax = 100e6
+    zmin = 1
+    zmax = 1e6
+    filename = "leaky-cap-chart.svg"
+
+    f = logspace(log(fmin), log(fmax), 2000, endpoint=True)
+    z1 = 2 + 1/(2j*π*f*1e-9) + 2j*π*f*10.0e-6
+    z2 = 5e5
+    z = z1 * z2 / (z1 + z2)
+
+    try:
+        with RLC_Chart(filename, fmin, fmax, zmin, zmax) as chart:
+            chart.add_trace(f, abs(z.real), stroke='blue')
+            chart.add_trace(f, abs(z.imag), stroke='red')
+            chart.add_trace(f, abs(z))
+    except OSError as e:
+        fatal(os_error(e))
+
+
+CSV Data
+""""""""
+
+The example given in labeling_ demonstrates how to read impedance data from 
+a CSV (comma separated values) file and use it to create an RLC chart.
+It is rather long, and so is not repeated here.
+
+
+Plotting Spectre Data
+"""""""""""""""""""""
+
+If you use the *Spectre* circuit simulator, you can use *psf_utils* with
+*rlc_chart* to extract models from simulation results. For example, here is the
+model of an inductor given by its manufacturer::
+
+    subckt MCFE1412TR47_JB (1 2)
+        R1 (1 7) resistor  r=0.036
+        L5 (2 8) inductor  l=20u
+        C2 (7 8) capacitor c=10.6p
+        R2 (8 2) resistor  r=528
+        C1 (7 9) capacitor c=28.5p
+        R5 (9 2) resistor  r=3.7
+        L0 (7 3) inductor  l=0.27u
+        L1 (3 4) inductor  l=0.07u
+        L2 (4 2) inductor  l=0.11u
+        L3 (3 5) inductor  l=0.39u
+        L4 (4 6) inductor  l=0.35u
+        R3 (5 4) resistor  r=3.02158381422266
+        R4 (6 2) resistor  r=43.4532529473926
+    ends MCFE1412TR47_JB
+
+This model is overly complicated and so expensive to simulate.  It requires 13
+extra unknowns that the simulator must compute (7 internal nodes and 6 inductor
+currents).  The impedance of this subcircuit is extracted by grounding one end
+and driving the other with a 1 A magnitude AC source.  Spectre is then run on 
+the circuit to generate a ASCII PSF file. Then, the RLC chart for this 
+subcircuit can be generated with::
+
+    from psf_utils import PSF
+    from inform import Error, os_error, fatal
+    from rlc_chart import RLC_Chart
+
+    try:
+        psf = PSF('MCFE1412TR47_JB.ac')
+        sweep = psf.get_sweep()
+        z_ckt = psf.get_signal('1')
+        z_mod = psf.get_signal('2')
+
+        with RLC_Chart('MCFE1412TR47_JB.svg', 100, 1e9, 0.01, 1000) as chart:
+            chart.add_trace(sweep.abscissa, abs(z_ckt.ordinate), stroke='red')
+            chart.add_trace(sweep.abscissa, abs(z_mod.ordinate), stroke='blue')
+
+        with RLC_Chart('MCFE1412TR47_JB.rxz.svg', 100, 1e9, 0.01, 1000) as chart:
+            chart.add_trace(sweep.abscissa, abs(z_ckt.ordinate.real), stroke='green')
+            chart.add_trace(sweep.abscissa, abs(z_ckt.ordinate.imag), stroke='orange')
+            chart.add_trace(sweep.abscissa, abs(z_mod.ordinate.real), stroke='blue')
+            chart.add_trace(sweep.abscissa, abs(z_mod.ordinate.imag), stroke='red')
+
+    except Error as e:
+        e.terminate()
+    except OSError as e:
+        fatal(os_error(e))
+
+The RLC chart shows that the above subcircuit can be replaced with::
+
+    subckt MCFE1412TR47_JB (1 2)
+        L   (2 2) inductor l=442.24nH r=36mOhm
+        C   (2 2) capacitor c=27.522pF
+        R   (2 2) resistor r=537.46_Ohm
+    ends MCFE1412TR47_JB
+
+This version only requires one additional unknown, the inductor current, and so
+is considerably more efficient.
+
+Here is the RLC chart of both showing the difference, which are inconsequential.
+
+.. image:: figures/MCFE1412TR47_JB.svg
+    :width: 100%
+    :align: center
+
+The differences are a bit more apparent if the real and imaginary components of
+the impedance are plotted separately.
+
+.. image:: figures/MCFE1412TR47_JB.rxz.svg
+    :width: 100%
+    :align: center
+
+The differences are significant only in the loss exhibited above resonance,
+which is usually not of concern.
+
+
+Plotting S-Parameter Data
+"""""""""""""""""""""""""
+
+You may find that the data on a two-terminal component is given as a two-port 
+S-parameter data file.  The following example shows how to read a TouchStone 
+two-port S-parameter data file, convert the S-parameters into Z-parameters, and 
+then plot Z12 on an RLC chart::
+
+    #!/usr/bin/env python3
+    # Convert S-Parameters of Inductor measure as a two port Impedance
+
+    from inform import fatal, os_error
+    from rlc_chart import RLC_Chart
+    from cmath import rect
+    from pathlib import Path
+
+    y11 = []
+    y12 = []
+    y21 = []
+    y22 = []
+    Zind1 = []
+    Zind2 = []
+    freq = []
+    z0 = 50
+
+    try:
+        data = Path('tfm201610alm_r47mtaa.s2p').read_text()
+        lines = data.splitlines()
+        for line in lines:
+            line = line.strip()
+            if line[0] in '!#':
+                continue
+            f, s11m, s11p, s12m, s12p, s21m, s21p, s22m, s22p = line.split()
+            s11 = rect(float(s11m), float(s11p)/180)
+            s12 = rect(float(s12m), float(s12p)/180)
+            s21 = rect(float(s21m), float(s21p)/180)
+            s22 = rect(float(s22m), float(s22p)/180)
+            d = (1 + s11)*(1 + s22) - s12*s21
+            y11 = ((1 - s11)*(1 + s22) + s12*s21) / d / z0
+            y12 = -2*s12 / d / z0
+            y21 = -2*s21 / d / z0
+            y22 = ((1 + s11)*(1 - s22) + s12*s21) / d / z0
+            f = float(f)
+            if f:
+                freq.append(f)
+                Zind1.append(abs(1/y12))
+                #Zind2.append(abs(1/y21))
+
+        with RLC_Chart('tfm201610alm.svg', 100e3, 1e9, 0.1, 1000) as chart:
+            chart.add_trace(freq, Zind1, stroke='red')
+            chart.add_trace(freq, Zind2, stroke='blue')
+
+    except OSError as e:
+        fatal(os_error(e))
+
+Here is the resulting RLC chart.
+
+.. image:: figures/tfm201610alm.svg
+    :width: 100%
+    :align: center
+
+
+.. _releases:
+
 Releases
--------
+--------
 
 **Latest development release**:
     | Version: 0.1.0
