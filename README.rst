@@ -584,16 +584,15 @@ then plot Z12 on an RLC chart::
             s12 = rect(float(s12m), float(s12p)/180)
             s21 = rect(float(s21m), float(s21p)/180)
             s22 = rect(float(s22m), float(s22p)/180)
-            d = (1 + s11)*(1 + s22) - s12*s21
-            y11 = ((1 - s11)*(1 + s22) + s12*s21) / d / z0
-            y12 = -2*s12 / d / z0
-            y21 = -2*s21 / d / z0
-            y22 = ((1 + s11)*(1 - s22) + s12*s21) / d / z0
+            Δ = (1 + s11)*(1 + s22) - s12*s21
+            y11 = ((1 - s11)*(1 + s22) + s12*s21) / Δ / z0
+            y12 = -2*s12 / Δ / z0
+            y21 = -2*s21 / Δ / z0
+            y22 = ((1 + s11)*(1 - s22) + s12*s21) / Δ / z0
             f = float(f)
             if f:
                 freq.append(f)
                 Zind1.append(abs(1/y12))
-                #Zind2.append(abs(1/y21))
 
         with RLC_Chart('tfm201610alm.svg', 100e3, 1e9, 0.1, 1000) as chart:
             chart.add_trace(freq, Zind1, stroke='red')
@@ -602,11 +601,16 @@ then plot Z12 on an RLC chart::
     except OSError as e:
         fatal(os_error(e))
 
-Here is the resulting RLC chart.
+Here is the resulting RLC chart for a 470 nH inductor where the S-parameters 
+were downloaded from the TDK website.
 
 .. image:: figures/tfm201610alm.svg
     :width: 100%
     :align: center
+
+Supposedly, this data is for a 470 nH inductor, but the actual value appears to 
+be 257 nH, which is well outside the expected 20% tolerance. Perhaps there is 
+some mix-up in the data files on the website.
 
 
 .. _installing:
