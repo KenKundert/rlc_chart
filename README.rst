@@ -23,8 +23,9 @@ inductance grids.  They can be used to directly read component values from
 a plot of impedance.  This is explained in `Introduction to Phasors
 <https://designers-guide.org/theory/phasors.pdf>`_.
 
-Consider the impedance of a capacitor that has series resistance and inductance
-parasitics along with a shunt resistor as represented by the following circuit:
+Consider the impedance of a leaky capacitor that has series resistance and 
+inductance parasitics along with a shunt resistor as represented by the 
+following circuit:
 
 .. image:: figures/leaky-cap-schematic.svg
     :width: 25%
