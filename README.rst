@@ -522,9 +522,9 @@ subcircuit can be generated with::
 The RLC chart shows that the above subcircuit can be replaced with::
 
     subckt MCFE1412TR47_JB (1 2)
-        L   (2 2) inductor l=442.24nH r=36mOhm
-        C   (2 2) capacitor c=27.522pF
-        R   (2 2) resistor r=537.46_Ohm
+        L   (1 2) inductor l=442.24nH r=36mOhm
+        C   (1 2) capacitor c=27.522pF
+        R   (1 2) resistor r=537.46_Ohm
     ends MCFE1412TR47_JB
 
 This version only requires one additional unknown, the inductor current, and so
