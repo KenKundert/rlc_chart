@@ -1,6 +1,9 @@
 RLC Chart
 =========
 
+.. image:: https://pepy.tech/badge/rlc_chart/month
+    :target: https://pepy.tech/project/rlc_chart
+
 .. image:: https://img.shields.io/pypi/v/rlc_chart.svg
     :target: https://pypi.python.org/pypi/rlc_chart
 
