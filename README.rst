@@ -637,9 +637,21 @@ To install use::
 Releases
 --------
 
-**Latest development release**:
-    | Version: 0.1.0
-    | Released: 2021-03-25
+Latest development release
+""""""""""""""""""""""""""
 
-**0.1 (2021-03-25)**:
-    - Initial release.
+| Version: 0.1.0
+| Released: 2021-03-25
+
+1.0 (2022-01-25)
+""""""""""""""""
+
+- Promote to full release.
+- Cosmetic changes to README.
+- Added test script (figures/run_tests).
+
+
+0.1 (2021-03-25)
+""""""""""""""""
+
+- Initial release.
