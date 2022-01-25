@@ -1,0 +1,54 @@
+#!/usr/bin/env python3
+
+from shlib import Run, to_path, set_prefs
+from inform import Error, Info, display, error, os_error, InformantFactory
+
+match = InformantFactory(clone=display, message_color="green")
+no_match = InformantFactory(clone=display, message_color="red")
+
+set_prefs(use_inform=True)
+
+test_cases = [
+    Info(
+        cmd = "leaky-cap-chart.py",
+        results = ("leaky-cap-chart.svg",)
+    ),
+    Info(
+        cmd = "leaky-cap-chart2.py",
+        results = ("leaky-cap-chart2.svg",)
+    ),
+    Info(
+        cmd = "MCFE1412TR47_JB.py",
+        results = (
+            "MCFE1412TR47_JB.svg",
+            "MCFE1412TR47_JB.rxz.svg"
+        )
+    ),
+    Info(
+        cmd = "C0603C102K3GACTU.py",
+        results = ("C0603C102K3GACTU.svg",)
+    ),
+    Info(
+        cmd = "tfm201610alm.py",
+        results = ("tfm201610alm.svg",)
+    ),
+]
+
+for test_case in test_cases:
+    try:
+        cmd = to_path(test_case.cmd)
+        display(f"{cmd.stem}:")
+        Run(["python3", cmd], modes="soeW")
+
+        for result in test_case.results:
+            result = to_path(result)
+            diff = Run(['diff', result, "Golden" / result], modes="soeW1")
+            if diff.status:
+                no_match(f"    {result.stem}: no match!")
+            else:
+                match(f"    {result.stem}: matches.")
+    except OSError as e:
+        error(os_error(e))
+    except Error as e:
+        e.report()
+

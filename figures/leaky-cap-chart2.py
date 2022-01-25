@@ -10,7 +10,7 @@ Create the RCL chart for a leaky capacitor with the following parameters:
     fmax = 100 MHz
     zmin = 1 Ω
     zmax = 1 MΩ
-    filename = "leaky-cap-chart.svg"
+    filename = "leaky-cap-chart2.svg"
 """
 
 from rlc_chart import RLC_Chart
@@ -23,8 +23,9 @@ params = Quantity.extract(__doc__)
 globals().update(params)
 
 f = logspace(log(fmin), log(fmax), 2000, endpoint=True)
-z1 = 2 + 1/(2j*π*f*1e-9) + 2j*π*f*10.0e-6
-z2 = 5e5
+jω = 2j*π*f
+z1 = Rs + 1/(jω*C) + jω*L
+z2 = Rp
 z = z1 * z2 / (z1 + z2)
 
 try:

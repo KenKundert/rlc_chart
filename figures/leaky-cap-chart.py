@@ -36,9 +36,11 @@ try:
 
         # Compute impedance of component
         # z = (Rs + 1/(jωC + jωL) ‖ Rp
+        j2π = 2j*π
         while(f <= 1.01*fmax):
-            z1 = 2 + 1/(2j*π*f*1e-9) + 2j*π*f*10.0e-6
-            z2 = 5e5
+            jω = j2π*f
+            z1 = Rs + 1/(jω*C) + jω*L
+            z2 = Rp
             z = z1 * z2 / (z1 + z2)
             freq += [f]
             impedance += [abs(z)]

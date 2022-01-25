@@ -70,13 +70,15 @@ Here is an example of how to use *rlc_chart*::
     f = fmin
     freq = []
     impedance = []
+    j2π = 2j*π
 
     # Compute impedance of component
     # z1 = (Rs + 1/(jωC + jωL)     Rs=2Ω, C=1nF, L=10μH
     # z2 = Rp                      Rp=500kΩ
     # z = z1 ‖ z2
     while(f <= 1.01*fmax):
-        z1 = Rs + 1/(2j*π*f*C) + 2j*π*f*L
+        jω = j2π*f
+        z1 = Rs + 1/(jω*C) + jω*L
         z2 = Rp
         z = z1 * z2 / (z1 + z2)
         freq += [f]
@@ -305,9 +307,11 @@ file::
     cmod = 1e-9
     lmod = 700e-12
     rmod = 20e-3
+    j2π = 2j*π
 
     def model(f):
-        return 1/(2j*π*f*cmod) + rmod + 2j*π*f*lmod
+        jω = j2π*f
+        return 1/(jω*cmod) + rmod + jω*lmod
 
     frequency = []
     z_data = []
@@ -425,7 +429,7 @@ Examples
 --------
 
 NumPy Arrays
-"""""""""""""
+""""""""""""
 
 The first example, given above in how_, demonstrates how to generate an RLC 
 chart by evaluating formulas in Python.  Here the example is repeated 
@@ -444,10 +448,12 @@ reformulated to use NumPy arrays::
     zmin = 1
     zmax = 1e6
     filename = "leaky-cap-chart.svg"
+    j2π = 2j*π
 
     f = logspace(log(fmin), log(fmax), 2000, endpoint=True)
-    z1 = 2 + 1/(2j*π*f*1e-9) + 2j*π*f*10.0e-6
-    z2 = 5e5
+    jω = j2π*f
+    z1 = Rs + 1/(jω*C) + jω*L
+    z2 = Rp
     z = z1 * z2 / (z1 + z2)
 
     try:
