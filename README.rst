@@ -565,7 +565,7 @@ two-port S-parameter data file, convert the S-parameters into Z-parameters, and
 then plot Z12 on an RLC chart::
 
     #!/usr/bin/env python3
-    # Convert S-Parameters of Inductor measure as a two port Impedance
+    # Convert S-Parameters of Inductor measured as a two port to Impedance
 
     from inform import fatal, os_error
     from rlc_chart import RLC_Chart
