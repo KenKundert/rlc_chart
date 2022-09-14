@@ -10,8 +10,7 @@ y11 = []
 y12 = []
 y21 = []
 y22 = []
-Zind1 = []
-Zind2 = []
+Zind = []
 freq = []
 z0 = 50
 
@@ -35,10 +34,10 @@ try:
         f = float(f)
         if f:
             freq.append(f)
-            Zind1.append(abs(1/y12))
+            Zind.append(abs(1/y12))
 
     with RLC_Chart('tfm201610alm.svg', 100e3, 1e9, 0.1, 1000) as chart:
-        chart.add_trace(freq, Zind1)
+        chart.add_trace(freq, Zind)
 
 except OSError as e:
     fatal(os_error(e))
