@@ -42,7 +42,7 @@ for test_case in test_cases:
 
         for result in test_case.results:
             result = to_path(result)
-            diff = Run(['diff', result, "Golden" / result], modes="soeW1")
+            diff = Run(['diff', result, "Golden" / result], modes="sOEW1")
             if diff.status:
                 no_match(f"    {result.stem}: no match!")
             else:
