@@ -134,7 +134,7 @@ In addition, the following keyword arguments are optional.
     and if given as upper case letters, both the major and minor grid lines are
     drawn.  The default is "FZRC".
 
-    The visual clutter in the chart can be reduces by eliminating unneeded grid
+    The visual clutter in the chart can be reduced by eliminating unneeded grid
     lines.
 
 *trace_width*:
@@ -202,8 +202,8 @@ In addition, the following keyword arguments are optional.
     inches.
 
 *pixels_per_unit*:
-    This is a scaling factor that allows you specify your dimensions to what
-    every units you wish.  A value of 96, the default, means that you are
+    This is a scaling factor that allows you specify your dimensions in what
+    ever units you wish.  A value of 96, the default, means that you are
     specifying your units in inches.  A value of 37.8 allows you specify values
     in centimeters.
 
