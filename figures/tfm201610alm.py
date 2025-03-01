@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
-# Convert S-Parameters of Inductor measure as a two port Impedance
+# Convert S-parameters of inductor, measured as a two port, to impedance
 
 from inform import fatal, os_error
 from rlc_chart import RLC_Chart
-from cmath import rect
+from cmath import rect, pi as π
 from pathlib import Path
 
 y11 = []
@@ -22,10 +22,10 @@ try:
         if line[0] in '!#':
             continue
         f, s11m, s11p, s12m, s12p, s21m, s21p, s22m, s22p = line.split()
-        s11 = rect(float(s11m), float(s11p)/180)
-        s12 = rect(float(s12m), float(s12p)/180)
-        s21 = rect(float(s21m), float(s21p)/180)
-        s22 = rect(float(s22m), float(s22p)/180)
+        s11 = rect(float(s11m), π*float(s11p)/180)
+        s12 = rect(float(s12m), π*float(s12p)/180)
+        s21 = rect(float(s21m), π*float(s21p)/180)
+        s22 = rect(float(s22m), π*float(s22p)/180)
         Δ = (1 + s11)*(1 + s22) - s12*s21
         y11 = ((1 - s11)*(1 + s22) + s12*s21) / Δ / z0
         y12 = -2*s12 / Δ / z0
@@ -41,5 +41,3 @@ try:
 
 except OSError as e:
     fatal(os_error(e))
-
-
